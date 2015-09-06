@@ -1,0 +1,5 @@
+tokenizer.lo: tokenizer.c /usr/include/stdc-predef.h tokenizer.h
+
+/usr/include/stdc-predef.h:
+
+tokenizer.h:
