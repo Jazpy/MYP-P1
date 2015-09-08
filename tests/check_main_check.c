@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <check.h>
 #include "../src/tokenizer.h"
+#include "../src/grammar_checker.h"
 
 START_TEST(test_token_init)
 {
@@ -64,6 +65,12 @@ START_TEST(test_get_next_token)
 }
 END_TEST
 
+START_TEST(test_grammar_check)
+{
+ 	ck_assert_msg(1 == 1, "yeh");
+}
+END_TEST
+
 Suite *tokenizer_suite()
 {
 	Suite *s;
@@ -85,14 +92,34 @@ Suite *tokenizer_suite()
 	return s;
 }
 
+Suite *grammar_suite()
+{
+	Suite *s;
+	TCase *tc_grammar;
+
+	s = suite_create("Grammar");
+
+	/* main case*/
+	tc_grammar = tcase_create("GrammarMain");
+
+	tcase_add_test(tc_grammar, test_grammar_check);
+	suite_add_tcase(s, tc_grammar);
+
+	return s;
+}
+
 int main()
 {
 	int number_failed;
-	Suite *s;
+	Suite *token_s;
+	Suite *grammar_s;
 	SRunner *sr;
 
-	s = tokenizer_suite();
-	sr = srunner_create(s);
+	token_s = tokenizer_suite();
+	grammar_s = grammar_suite();
+
+	sr = srunner_create(token_s);
+	srunner_add_suite(sr, grammar_s);
 
 	srunner_run_all(sr, CK_NORMAL);
 	number_failed = srunner_ntests_failed(sr);

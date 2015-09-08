@@ -28,7 +28,8 @@ check_main_check-check_main_check.o: check_main_check.c \
  /usr/include/x86_64-linux-gnu/bits/string2.h \
  /usr/include/x86_64-linux-gnu/bits/string3.h /usr/include/check_stdint.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h ../src/tokenizer.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h ../src/tokenizer.h \
+ ../src/grammar_checker.h
 
 /usr/include/stdc-predef.h:
 
@@ -109,3 +110,5 @@ check_main_check-check_main_check.o: check_main_check.c \
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
 ../src/tokenizer.h:
+
+../src/grammar_checker.h:

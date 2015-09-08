@@ -484,7 +484,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-check_main_check_SOURCES = check_main_check.c $(top_builddir)/src/tokenizer.h
+check_main_check_SOURCES = check_main_check.c $(top_builddir)/src/tokenizer.h $(top_builddir)/src/grammar_checker.h
 check_main_check_CFLAGS = 
 check_main_check_LDADD = $(top_builddir)/src/libmain_check.la -lcheck
 all: all-am
