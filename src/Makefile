@@ -120,9 +120,9 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libtokenizer_la_LIBADD =
-am_libtokenizer_la_OBJECTS = tokenizer.lo
-libtokenizer_la_OBJECTS = $(am_libtokenizer_la_OBJECTS)
+libmain_check_la_LIBADD =
+am_libmain_check_la_OBJECTS = tokenizer.lo
+libmain_check_la_OBJECTS = $(am_libmain_check_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
@@ -130,7 +130,7 @@ am__v_lt_1 =
 PROGRAMS = $(bin_PROGRAMS)
 am_main_OBJECTS = main.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
-main_DEPENDENCIES = libtokenizer.la
+main_DEPENDENCIES = libmain_check.la
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -165,8 +165,8 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libtokenizer_la_SOURCES) $(main_SOURCES)
-DIST_SOURCES = $(libtokenizer_la_SOURCES) $(main_SOURCES)
+SOURCES = $(libmain_check_la_SOURCES) $(main_SOURCES)
+DIST_SOURCES = $(libmain_check_la_SOURCES) $(main_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -308,10 +308,10 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-lib_LTLIBRARIES = libtokenizer.la
-libtokenizer_la_SOURCES = tokenizer.c tokenizer.h
+lib_LTLIBRARIES = libmain_check.la
+libmain_check_la_SOURCES = tokenizer.c tokenizer.h
 main_SOURCES = main.c
-main_LDADD = libtokenizer.la
+main_LDADD = libmain_check.la
 all: all-am
 
 .SUFFIXES:
@@ -382,8 +382,8 @@ clean-libLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libtokenizer.la: $(libtokenizer_la_OBJECTS) $(libtokenizer_la_DEPENDENCIES) $(EXTRA_libtokenizer_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libtokenizer_la_OBJECTS) $(libtokenizer_la_LIBADD) $(LIBS)
+libmain_check.la: $(libmain_check_la_OBJECTS) $(libmain_check_la_DEPENDENCIES) $(EXTRA_libmain_check_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libmain_check_la_OBJECTS) $(libmain_check_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \

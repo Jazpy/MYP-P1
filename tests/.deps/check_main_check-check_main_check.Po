@@ -1,5 +1,5 @@
-tokenizer.lo: tokenizer.c /usr/include/stdc-predef.h \
- /usr/include/stdlib.h /usr/include/features.h \
+check_main_check-check_main_check.o: check_main_check.c \
+ /usr/include/stdc-predef.h /usr/include/stdlib.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
@@ -22,10 +22,13 @@ tokenizer.lo: tokenizer.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h \
- /usr/include/xlocale.h /usr/include/x86_64-linux-gnu/bits/string.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/check.h \
+ /usr/include/string.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/bits/string.h \
  /usr/include/x86_64-linux-gnu/bits/string2.h \
- /usr/include/x86_64-linux-gnu/bits/string3.h tokenizer.h
+ /usr/include/x86_64-linux-gnu/bits/string3.h /usr/include/check_stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h ../src/tokenizer.h
 
 /usr/include/stdc-predef.h:
 
@@ -85,6 +88,8 @@ tokenizer.lo: tokenizer.c /usr/include/stdc-predef.h \
 
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
+/usr/include/check.h:
+
 /usr/include/string.h:
 
 /usr/include/xlocale.h:
@@ -95,4 +100,12 @@ tokenizer.lo: tokenizer.c /usr/include/stdc-predef.h \
 
 /usr/include/x86_64-linux-gnu/bits/string3.h:
 
-tokenizer.h:
+/usr/include/check_stdint.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+../src/tokenizer.h:

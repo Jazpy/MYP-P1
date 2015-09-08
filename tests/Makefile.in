@@ -77,8 +77,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-TESTS = check_tokenizer$(EXEEXT)
-check_PROGRAMS = check_tokenizer$(EXEEXT)
+TESTS = check_main_check$(EXEEXT)
+check_PROGRAMS = check_main_check$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/build-aux/depcomp \
@@ -91,17 +91,17 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am_check_tokenizer_OBJECTS =  \
-	check_tokenizer-check_tokenizer.$(OBJEXT)
-check_tokenizer_OBJECTS = $(am_check_tokenizer_OBJECTS)
-check_tokenizer_DEPENDENCIES = $(top_builddir)/src/libtokenizer.la
+am_check_main_check_OBJECTS =  \
+	check_main_check-check_main_check.$(OBJEXT)
+check_main_check_OBJECTS = $(am_check_main_check_OBJECTS)
+check_main_check_DEPENDENCIES = $(top_builddir)/src/libmain_check.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-check_tokenizer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+check_main_check_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(check_tokenizer_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	$(check_main_check_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -137,8 +137,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(check_tokenizer_SOURCES)
-DIST_SOURCES = $(check_tokenizer_SOURCES)
+SOURCES = $(check_main_check_SOURCES)
+DIST_SOURCES = $(check_main_check_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -484,9 +484,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-check_tokenizer_SOURCES = check_tokenizer.c $(top_builddir)/src/tokenizer.h
-check_tokenizer_CFLAGS = @CHECK_CFLAGS@
-check_tokenizer_LDADD = $(top_builddir)/src/libtokenizer.la @CHECK_LIBS@
+check_main_check_SOURCES = check_main_check.c $(top_builddir)/src/tokenizer.h
+check_main_check_CFLAGS = @CHECK_CFLAGS@
+check_main_check_LDADD = $(top_builddir)/src/libmain_check.la @CHECK_LIBS@
 all: all-am
 
 .SUFFIXES:
@@ -531,9 +531,9 @@ clean-checkPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
-check_tokenizer$(EXEEXT): $(check_tokenizer_OBJECTS) $(check_tokenizer_DEPENDENCIES) $(EXTRA_check_tokenizer_DEPENDENCIES) 
-	@rm -f check_tokenizer$(EXEEXT)
-	$(AM_V_CCLD)$(check_tokenizer_LINK) $(check_tokenizer_OBJECTS) $(check_tokenizer_LDADD) $(LIBS)
+check_main_check$(EXEEXT): $(check_main_check_OBJECTS) $(check_main_check_DEPENDENCIES) $(EXTRA_check_main_check_DEPENDENCIES) 
+	@rm -f check_main_check$(EXEEXT)
+	$(AM_V_CCLD)$(check_main_check_LINK) $(check_main_check_OBJECTS) $(check_main_check_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -541,7 +541,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_tokenizer-check_tokenizer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_main_check-check_main_check.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -564,19 +564,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-check_tokenizer-check_tokenizer.o: check_tokenizer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_tokenizer_CFLAGS) $(CFLAGS) -MT check_tokenizer-check_tokenizer.o -MD -MP -MF $(DEPDIR)/check_tokenizer-check_tokenizer.Tpo -c -o check_tokenizer-check_tokenizer.o `test -f 'check_tokenizer.c' || echo '$(srcdir)/'`check_tokenizer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/check_tokenizer-check_tokenizer.Tpo $(DEPDIR)/check_tokenizer-check_tokenizer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_tokenizer.c' object='check_tokenizer-check_tokenizer.o' libtool=no @AMDEPBACKSLASH@
+check_main_check-check_main_check.o: check_main_check.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_main_check_CFLAGS) $(CFLAGS) -MT check_main_check-check_main_check.o -MD -MP -MF $(DEPDIR)/check_main_check-check_main_check.Tpo -c -o check_main_check-check_main_check.o `test -f 'check_main_check.c' || echo '$(srcdir)/'`check_main_check.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/check_main_check-check_main_check.Tpo $(DEPDIR)/check_main_check-check_main_check.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_main_check.c' object='check_main_check-check_main_check.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_tokenizer_CFLAGS) $(CFLAGS) -c -o check_tokenizer-check_tokenizer.o `test -f 'check_tokenizer.c' || echo '$(srcdir)/'`check_tokenizer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_main_check_CFLAGS) $(CFLAGS) -c -o check_main_check-check_main_check.o `test -f 'check_main_check.c' || echo '$(srcdir)/'`check_main_check.c
 
-check_tokenizer-check_tokenizer.obj: check_tokenizer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_tokenizer_CFLAGS) $(CFLAGS) -MT check_tokenizer-check_tokenizer.obj -MD -MP -MF $(DEPDIR)/check_tokenizer-check_tokenizer.Tpo -c -o check_tokenizer-check_tokenizer.obj `if test -f 'check_tokenizer.c'; then $(CYGPATH_W) 'check_tokenizer.c'; else $(CYGPATH_W) '$(srcdir)/check_tokenizer.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/check_tokenizer-check_tokenizer.Tpo $(DEPDIR)/check_tokenizer-check_tokenizer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_tokenizer.c' object='check_tokenizer-check_tokenizer.obj' libtool=no @AMDEPBACKSLASH@
+check_main_check-check_main_check.obj: check_main_check.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_main_check_CFLAGS) $(CFLAGS) -MT check_main_check-check_main_check.obj -MD -MP -MF $(DEPDIR)/check_main_check-check_main_check.Tpo -c -o check_main_check-check_main_check.obj `if test -f 'check_main_check.c'; then $(CYGPATH_W) 'check_main_check.c'; else $(CYGPATH_W) '$(srcdir)/check_main_check.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/check_main_check-check_main_check.Tpo $(DEPDIR)/check_main_check-check_main_check.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_main_check.c' object='check_main_check-check_main_check.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_tokenizer_CFLAGS) $(CFLAGS) -c -o check_tokenizer-check_tokenizer.obj `if test -f 'check_tokenizer.c'; then $(CYGPATH_W) 'check_tokenizer.c'; else $(CYGPATH_W) '$(srcdir)/check_tokenizer.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_main_check_CFLAGS) $(CFLAGS) -c -o check_main_check-check_main_check.obj `if test -f 'check_main_check.c'; then $(CYGPATH_W) 'check_main_check.c'; else $(CYGPATH_W) '$(srcdir)/check_main_check.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -777,9 +777,9 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-check_tokenizer.log: check_tokenizer$(EXEEXT)
-	@p='check_tokenizer$(EXEEXT)'; \
-	b='check_tokenizer'; \
+check_main_check.log: check_main_check$(EXEEXT)
+	@p='check_main_check$(EXEEXT)'; \
+	b='check_main_check'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

@@ -22,7 +22,6 @@ START_TEST(test_get_next_token)
  	ck_assert_msg(t.id == 1, "failed 2");
 	t = get_next_token(test_string, &index, &prev_token_id);
  	ck_assert_msg(t.id == 4, "failed 3");
-
 	t = get_next_token(test_string, &index, &prev_token_id);
  	ck_assert_msg(t.id == 8, "failed 4");
 	t = get_next_token(test_string, &index, &prev_token_id);

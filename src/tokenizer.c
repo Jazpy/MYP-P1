@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "tokenizer.h"
@@ -39,8 +38,6 @@ struct token get_next_token(char *str, int *index, int *prev_token_id)
 	char curr = str[*index];
 	int length = 0;
 
-	printf("%d, %c, ", *index, curr);
-	
 	//First we check for operators
 	if(curr == '-')
 	{
@@ -119,8 +116,6 @@ struct token get_next_token(char *str, int *index, int *prev_token_id)
 
 	//Update prev_token_id
 	*prev_token_id = ret.id;
-
-	printf("%f\n", ret.val);
 
 	return ret;
 }
