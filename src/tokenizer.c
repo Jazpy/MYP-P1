@@ -109,7 +109,7 @@ struct token get_next_token(char *str, int *index, int *prev_token_id)
 	//and modify index
 	if(ret.id == 0)
 		*index += length;
-	else if(ret.id >= 1 && ret.id <= 9)
+	else if((ret.id >= 1 && ret.id <= 9) || ret.id == -1)
 		*index += 1;
 	else if(ret.id >= 10 && ret.id <= 16)
 		*index += 3;

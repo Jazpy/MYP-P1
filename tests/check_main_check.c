@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <check.h>
 #include "../src/tokenizer.h"
 #include "../src/grammar_checker.h"
@@ -62,14 +64,271 @@ START_TEST(test_get_next_token)
 	t = get_next_token(test_string, &index, &prev_token_id);
  	ck_assert_msg(t.id == -1, "failed 21");
 
+	test_string = "";
+	ck_assert_msg(t.id == -1, "failed 22");
 }
 END_TEST
 
 START_TEST(test_grammar_check)
 {
- 	ck_assert_msg(1 == 1, "yeh");
+	char *test_string = "(x+5)/sqr(5.64)";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf("(x+5)/sqr(5.64) says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "s") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
 }
 END_TEST
+
+START_TEST(test_grammar_check_bad_start)
+{
+	char *test_string = ")x+5";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf(")x+5 says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "can't start an equation with a closing parenthesis") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
+}
+END_TEST
+
+START_TEST(test_grammar_check_bad_paren)
+{
+	char *test_string = "(()()(())))";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf("(()()(()))) says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "mismatched parenthesis") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
+}
+END_TEST
+
+START_TEST(test_grammar_check_bad_number)
+{
+	char *test_string = "(x+5)6";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf("(x+5)6 says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "can't have anything other than an operator or a closing parenthesis right after a closing parenthesis") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
+}
+END_TEST
+
+START_TEST(test_grammar_check_bad_operator)
+{
+	char *test_string = "(+x+5)";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf("(+x+5) says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "can't have an operator right after an opening parenthesis") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
+}
+END_TEST
+
+START_TEST(test_grammar_check_bad_function_name)
+{
+	char *test_string = "son(x)";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf("son(x) says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "unrecognized expression, please refer to the README") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
+}
+END_TEST
+
+START_TEST(test_grammar_check_bad_function)
+{
+	char *test_string = "sinx";
+	int index = 0, prev_token_id = 0;
+
+	struct node *root;
+	struct node *conductor;
+	root = (struct node*)malloc(sizeof(struct node));
+	root -> next = 0;
+	conductor = root;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(root);
+	printf("sinx says:\n");
+	printf("%s\n", result);
+	ck_assert_msg(strcmp(result, "can't have anything other than an opening parenthesis after a function") == 0, "failed 1");
+
+	while((conductor = root) != 0)
+	{
+		root = root -> next;
+		free(conductor);
+	}
+}
+END_TEST
+
+
 
 Suite *tokenizer_suite()
 {
@@ -96,14 +355,23 @@ Suite *grammar_suite()
 {
 	Suite *s;
 	TCase *tc_grammar;
+	TCase *tc_mistakes;
 
 	s = suite_create("Grammar");
 
 	/* main case*/
 	tc_grammar = tcase_create("GrammarMain");
+	tc_mistakes = tcase_create("GrammarMistakes");
 
 	tcase_add_test(tc_grammar, test_grammar_check);
+	tcase_add_test(tc_mistakes, test_grammar_check_bad_start);
+	tcase_add_test(tc_mistakes, test_grammar_check_bad_paren);
+	tcase_add_test(tc_mistakes, test_grammar_check_bad_number);
+	tcase_add_test(tc_mistakes, test_grammar_check_bad_operator);
+	tcase_add_test(tc_mistakes, test_grammar_check_bad_function_name);
+	tcase_add_test(tc_mistakes, test_grammar_check_bad_function);
 	suite_add_tcase(s, tc_grammar);
+	suite_add_tcase(s, tc_mistakes);
 
 	return s;
 }

@@ -1,3 +1,10 @@
-grammar_checker.lo: grammar_checker.c /usr/include/stdc-predef.h
+grammar_checker.lo: grammar_checker.c /usr/include/stdc-predef.h \
+ grammar_checker.h linked_list.h tokenizer.h
 
 /usr/include/stdc-predef.h:
+
+grammar_checker.h:
+
+linked_list.h:
+
+tokenizer.h:
