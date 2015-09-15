@@ -4,6 +4,17 @@
 #include <check.h>
 #include "../src/tokenizer.h"
 #include "../src/grammar_checker.h"
+#include "../src/shunting_yard.h"
+
+START_TEST(test_shunting_yard)
+{
+	struct node *head;
+    	struct tree_node *root;
+	root = parse_linked_list(head);
+
+ 	ck_assert_msg(root == 0);
+}
+END_TEST
 
 START_TEST(test_token_init)
 {
@@ -328,7 +339,21 @@ START_TEST(test_grammar_check_bad_function)
 }
 END_TEST
 
+Suite *shunting_yard_suite()
+{
+	Suite *s;
+	TCase *tc_shunting_yard;
 
+	s = suite_create("ShuntingYard");
+
+	/* core case */
+	tc_shunting_yard = tcase_create("Core");
+
+	tcase_add_test(tc_shunting_yard, test_shunting_yard);
+	suite_add_tcase(s, tc_shunting_yard);
+
+	return s;
+}
 
 Suite *tokenizer_suite()
 {
@@ -381,13 +406,16 @@ int main()
 	int number_failed;
 	Suite *token_s;
 	Suite *grammar_s;
+	Suite *shunting_yard_s;
 	SRunner *sr;
 
 	token_s = tokenizer_suite();
 	grammar_s = grammar_suite();
+	shunting_yard_s = shunting_yard_suite();
 
 	sr = srunner_create(token_s);
 	srunner_add_suite(sr, grammar_s);
+	srunner_add_suite(sr, shunting_yard_s);
 
 	srunner_run_all(sr, CK_NORMAL);
 	number_failed = srunner_ntests_failed(sr);

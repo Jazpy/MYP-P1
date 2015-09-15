@@ -1,0 +1,12 @@
+shunting_yard.lo: shunting_yard.c /usr/include/stdc-predef.h \
+ shunting_yard.h binary_tree.h tokenizer.h linked_list.h
+
+/usr/include/stdc-predef.h:
+
+shunting_yard.h:
+
+binary_tree.h:
+
+tokenizer.h:
+
+linked_list.h:

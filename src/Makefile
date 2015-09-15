@@ -121,7 +121,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmain_check_la_LIBADD =
-am_libmain_check_la_OBJECTS = tokenizer.lo grammar_checker.lo
+am_libmain_check_la_OBJECTS = tokenizer.lo grammar_checker.lo \
+	shunting_yard.lo
 libmain_check_la_OBJECTS = $(am_libmain_check_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -309,7 +310,7 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 lib_LTLIBRARIES = libmain_check.la
-libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h 
+libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h
 main_SOURCES = main.c
 main_LDADD = libmain_check.la
 all: all-am
@@ -446,6 +447,7 @@ distclean-compile:
 
 include ./$(DEPDIR)/grammar_checker.Plo
 include ./$(DEPDIR)/main.Po
+include ./$(DEPDIR)/shunting_yard.Plo
 include ./$(DEPDIR)/tokenizer.Plo
 
 .c.o:

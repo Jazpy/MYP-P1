@@ -14,4 +14,5 @@ son(x) says:
 unrecognized expression, please refer to the README
 sinx says:
 can't have anything other than an opening parenthesis after a function
-100%: Checks: 9, Failures: 0, Errors: 0
+ ShuntingYard
+100%: Checks: 10, Failures: 0, Errors: 0
