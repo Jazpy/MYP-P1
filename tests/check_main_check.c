@@ -8,6 +8,73 @@
 #include "../src/linked_list.h"
 #include "../src/binary_tree.h"
 
+START_TEST(test_shunting_yard2)
+{
+	char *test_string = "5";
+	int index = 0, prev_token_id = 0;
+
+	struct node *head;
+	struct node *conductor;
+	head = malloc(sizeof(struct node));
+	head -> next = 0;
+	conductor = head;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(head);
+	printf("%s\n", result);
+
+    	struct node *parsed;
+	parsed = parse_linked_list(head);
+
+	struct node *test_list = malloc(sizeof(struct node));
+	test_list -> next = 0;
+	conductor = test_list;
+	
+	char *rpn = "5";
+	index = prev_token_id = 0;
+
+	while(rpn[index] != '\0')
+	{
+		conductor -> t = get_next_token(rpn, &index,
+			&prev_token_id);
+	
+		if(rpn[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	conductor = test_list;
+	struct node *conductor2 = parsed;
+
+	while(conductor != 0)
+	{
+		ck_assert_msg(conductor -> t.id == conductor2 -> t.id);
+		conductor = conductor -> next;
+		conductor2 = conductor2 -> next;
+	}
+
+
+	free_list(head);
+	free_list(test_list);
+	free_list(parsed);
+}
+END_TEST
+
 START_TEST(test_shunting_yard)
 {
 	char *test_string = "(-(x+5)/sqr(5.64))*2/sin(5*x)";
@@ -381,6 +448,7 @@ Suite *shunting_yard_suite()
 	tc_shunting_yard = tcase_create("Core");
 
 	tcase_add_test(tc_shunting_yard, test_shunting_yard);
+	tcase_add_test(tc_shunting_yard, test_shunting_yard2);
 	suite_add_tcase(s, tc_shunting_yard);
 
 	return s;
