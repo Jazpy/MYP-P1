@@ -5,6 +5,8 @@
 #include "../src/tokenizer.h"
 #include "../src/grammar_checker.h"
 #include "../src/shunting_yard.h"
+#include "../src/linked_list.h"
+#include "../src/binary_tree.h"
 
 START_TEST(test_shunting_yard)
 {
@@ -13,6 +15,8 @@ START_TEST(test_shunting_yard)
 	root = parse_linked_list(head);
 
  	ck_assert_msg(root == 0);
+
+	free_tree(root);
 }
 END_TEST
 
@@ -109,11 +113,7 @@ START_TEST(test_grammar_check)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "s") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 
@@ -146,11 +146,7 @@ START_TEST(test_grammar_check_bad_start)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "can't start an equation with a closing parenthesis") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 
@@ -183,11 +179,7 @@ START_TEST(test_grammar_check_bad_paren)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "mismatched parenthesis") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 
@@ -220,11 +212,7 @@ START_TEST(test_grammar_check_bad_number)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "can't have anything other than an operator or a closing parenthesis right after a closing parenthesis") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 
@@ -257,11 +245,7 @@ START_TEST(test_grammar_check_bad_operator)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "can't have an operator right after an opening parenthesis") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 
@@ -294,11 +278,7 @@ START_TEST(test_grammar_check_bad_function_name)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "unrecognized expression, please refer to the README") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 
@@ -331,11 +311,7 @@ START_TEST(test_grammar_check_bad_function)
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "can't have anything other than an opening parenthesis after a function") == 0, "failed 1");
 
-	while((conductor = root) != 0)
-	{
-		root = root -> next;
-		free(conductor);
-	}
+	free_list(root);
 }
 END_TEST
 

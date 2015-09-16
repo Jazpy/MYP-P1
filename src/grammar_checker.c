@@ -43,15 +43,17 @@ const char *analyze_linked_list(struct node *root)
 				"something other than an operator";
 		}
 		
-		if(prev_id == 2 && (curr_id != 0 && curr_id != 1))
+		if(prev_id == 2 && (curr_id != 0 && curr_id != 1 &&
+			curr_id != 8 && !(curr_id <= 16 && curr_id >= 10)))
 		{
-			return "can't negate something other than number "
-				"or variable";
+			return "can't negate something other than number, "
+				"variable, or expression";
 		}
 
 		if((prev_id >= 3 && prev_id <= 7) && 
 			(curr_id != 0 && curr_id != 1) &&
-			!(curr_id >= 10 && curr_id <= 16))
+			!(curr_id >= 10 && curr_id <= 16) && 
+			curr_id != 2)
 		{
 			return "can't have something other than number "
 				"or variable after binary operator";

@@ -10,4 +10,6 @@ struct tree_node
 	struct tree_node *right;
 };
 
+void free_tree(struct tree_node *node);
+
 #endif /* BINARY_TREE_H */

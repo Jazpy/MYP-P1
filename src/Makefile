@@ -122,7 +122,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmain_check_la_LIBADD =
 am_libmain_check_la_OBJECTS = tokenizer.lo grammar_checker.lo \
-	shunting_yard.lo
+	shunting_yard.lo binary_tree.lo linked_list.lo
 libmain_check_la_OBJECTS = $(am_libmain_check_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -257,10 +257,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.3
-abs_builddir = /home/jaz/Documents/MYP/MYP-P1/src
-abs_srcdir = /home/jaz/Documents/MYP/MYP-P1/src
-abs_top_builddir = /home/jaz/Documents/MYP/MYP-P1
-abs_top_srcdir = /home/jaz/Documents/MYP/MYP-P1
+abs_builddir = /home/jaz/Documents/MYP/P1/src
+abs_srcdir = /home/jaz/Documents/MYP/P1/src
+abs_top_builddir = /home/jaz/Documents/MYP/P1
+abs_top_srcdir = /home/jaz/Documents/MYP/P1
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -310,7 +310,7 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 lib_LTLIBRARIES = libmain_check.la
-libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h
+libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h binary_tree.c binary_tree.h linked_list.c linked_list.h
 main_SOURCES = main.c
 main_LDADD = libmain_check.la
 all: all-am
@@ -445,7 +445,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/binary_tree.Plo
 include ./$(DEPDIR)/grammar_checker.Plo
+include ./$(DEPDIR)/linked_list.Plo
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/shunting_yard.Plo
 include ./$(DEPDIR)/tokenizer.Plo

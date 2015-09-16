@@ -9,4 +9,6 @@ struct node
 	struct node *next;
 };
 
+void free_list(struct node *head);
+
 #endif /* LINKED_LIST_H */

@@ -1,5 +1,5 @@
-check_main_check-check_main_check.o: check_main_check.c \
- /usr/include/stdc-predef.h /usr/include/stdlib.h /usr/include/features.h \
+linked_list.lo: linked_list.c /usr/include/stdc-predef.h \
+ /usr/include/stdlib.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
@@ -22,22 +22,7 @@ check_main_check-check_main_check.o: check_main_check.c \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/stdio.h \
- /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/string.h \
- /usr/include/xlocale.h /usr/include/x86_64-linux-gnu/bits/string.h \
- /usr/include/x86_64-linux-gnu/bits/string2.h \
- /usr/include/x86_64-linux-gnu/bits/string3.h /usr/include/check.h \
- /usr/include/check_stdint.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h ../src/tokenizer.h \
- ../src/grammar_checker.h ../src/linked_list.h ../src/tokenizer.h \
- ../src/shunting_yard.h ../src/binary_tree.h ../src/linked_list.h \
- ../src/binary_tree.h
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h linked_list.h tokenizer.h
 
 /usr/include/stdc-predef.h:
 
@@ -97,56 +82,6 @@ check_main_check-check_main_check.o: check_main_check.c \
 
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
-/usr/include/stdio.h:
+linked_list.h:
 
-/usr/include/libio.h:
-
-/usr/include/_G_config.h:
-
-/usr/include/wchar.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
-/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:
-
-/usr/include/string.h:
-
-/usr/include/xlocale.h:
-
-/usr/include/x86_64-linux-gnu/bits/string.h:
-
-/usr/include/x86_64-linux-gnu/bits/string2.h:
-
-/usr/include/x86_64-linux-gnu/bits/string3.h:
-
-/usr/include/check.h:
-
-/usr/include/check_stdint.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h:
-
-/usr/include/stdint.h:
-
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-
-../src/tokenizer.h:
-
-../src/grammar_checker.h:
-
-../src/linked_list.h:
-
-../src/tokenizer.h:
-
-../src/shunting_yard.h:
-
-../src/binary_tree.h:
-
-../src/linked_list.h:
-
-../src/binary_tree.h:
+tokenizer.h:
