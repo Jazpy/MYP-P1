@@ -1,28 +1,33 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "shunting_yard.h"
 #include "tokenizer.h"
 
 struct node *parse_linked_list(struct node *head)
 {
+	struct token initial;
+	token_init(&initial);
+	initial.id = -1;
+
 	//our hackish queue
-	struct node *queue = 0;
+	struct node *queue = malloc(sizeof(struct node));
 	struct node *queue_con = queue;
+	struct node *queue_prev = queue_con;
+	queue -> t = initial;
+
 	//our hackish stack
-	struct node *stack = 0;
+	struct node *stack = malloc(sizeof(struct node));
+	stack -> next = 0;
+	stack -> t = initial;
 
 	while(head != 0)
 	{
 		struct token curr_tok = head -> t;		
 
-	 	// if it's a number of var we add to output
+	 	// if it's a number or var we add to output
 		if(curr_tok.id == 0 || curr_tok.id == 1)
 		{
-			if(queue == 0)
-			{
-				queue = malloc(sizeof(struct node));
-				queue_con = queue;
-			}
-	
+			queue_prev = queue_con;
 			queue_con -> t = curr_tok;
 			queue_con -> next = malloc(sizeof(struct node));
 			queue_con = queue_con -> next;
@@ -61,7 +66,8 @@ struct node *parse_linked_list(struct node *head)
 
 					if(curr_prec <= top_prec)
 					{
-
+						queue_prev = 
+							queue_con;
 						queue_con -> t =
 							top_stack;
 						queue_con -> next =
@@ -82,6 +88,7 @@ struct node *parse_linked_list(struct node *head)
 				} else if(curr_tok.id == 2 &&
 					top_stack.id == 7)
 				{
+					queue_prev = queue_con;
 					queue_con -> t = top_stack;
 					queue_con -> next = malloc(sizeof(
 						struct node));
@@ -118,6 +125,7 @@ struct node *parse_linked_list(struct node *head)
 		} else if(curr_tok.id == 9){
 			while(stack -> t.id != 8)
 			{
+				queue_prev = queue_con;
 				queue_con -> t = stack -> t;
 				queue_con -> next = malloc(sizeof(
 					struct node));
@@ -140,6 +148,7 @@ struct node *parse_linked_list(struct node *head)
 
 			if(stack -> t.id >= 10 && stack -> t.id <= 16)
 			{
+				queue_prev = queue_con;
 				queue_con -> t = stack -> t;
 				queue_con -> next = malloc(sizeof(
 					struct node));
@@ -156,9 +165,10 @@ struct node *parse_linked_list(struct node *head)
 	
 		head = head -> next;
 	}
-
-	while(stack != 0)
+	
+	while(stack != 0 && stack -> t.id != -1)
 	{
+		queue_prev = queue_con;
 		queue_con -> t = stack -> t;
 		queue_con -> next = malloc(sizeof(struct node));
 		queue_con = queue_con -> next;
@@ -171,5 +181,8 @@ struct node *parse_linked_list(struct node *head)
 		free(stack_temp);
 	}
 
+	//clean up linked list's trailing junk
+	queue_prev -> next = 0;
+	
 	return queue;
 }

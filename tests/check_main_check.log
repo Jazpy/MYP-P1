@@ -1,6 +1,6 @@
 Running suite(s): Tokenizer
  Grammar
-(x+5)/sqr(5.64) says:
+(-(x+5)/sqr(5.64))*2 says:
 s
 )x+5 says:
 can't start an equation with a closing parenthesis
@@ -15,4 +15,12 @@ unrecognized expression, please refer to the README
 sinx says:
 can't have anything other than an opening parenthesis after a function
  ShuntingYard
+s
+token id: 8
+token id: 2
+token id: 1
+token id: 9
+*****
+token id: 1
+token id: 2
 100%: Checks: 10, Failures: 0, Errors: 0

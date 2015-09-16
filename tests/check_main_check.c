@@ -10,7 +10,8 @@
 
 START_TEST(test_shunting_yard)
 {
-	char *test_string = "-(x+5)/sqr(5.64)";
+	char *test_string = "(-x)";
+	//char *test_string = "(-(x+5)/sqr(5.64))*2";
 	int index = 0, prev_token_id = 0;
 
 	struct node *head;
@@ -32,8 +33,36 @@ START_TEST(test_shunting_yard)
 		}
 	}
 
+	const char *result = analyze_linked_list(head);
+	printf("%s\n", result);
+
+	struct node *con = head;
+
+	while(con != 0)
+	{
+		printf("token id: %d\n", con -> t.id);
+
+		if(con -> t.id == 0)
+			printf("val: %f\n", con ->t.val);
+
+		con = con -> next;
+	}
+
     	struct node *parsed;
 	parsed = parse_linked_list(head);
+	con = parsed;
+
+	printf("*****\n");
+
+	while(con != 0)
+	{
+		printf("token id: %d\n", con -> t.id);
+		
+		if(con -> t.id == 0)
+			printf("val: %f\n", con ->t.val);
+
+		con = con -> next;
+	}
 
  	ck_assert_msg(0 == 0);
 
@@ -108,7 +137,7 @@ END_TEST
 
 START_TEST(test_grammar_check)
 {
-	char *test_string = "(x+5)/sqr(5.64)";
+	char *test_string = "(-(x+5)/sqr(5.64))*2";
 	int index = 0, prev_token_id = 0;
 
 	struct node *root;
@@ -131,7 +160,7 @@ START_TEST(test_grammar_check)
 	}
 
 	const char *result = analyze_linked_list(root);
-	printf("(x+5)/sqr(5.64) says:\n");
+	printf("(-(x+5)/sqr(5.64))*2 says:\n");
 	printf("%s\n", result);
 	ck_assert_msg(strcmp(result, "s") == 0, "failed 1");
 
