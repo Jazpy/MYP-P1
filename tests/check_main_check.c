@@ -10,8 +10,7 @@
 
 START_TEST(test_shunting_yard)
 {
-	char *test_string = "(-x)";
-	//char *test_string = "(-(x+5)/sqr(5.64))*2";
+	char *test_string = "(-(x+5)/sqr(5.64))*2/sin(5*x)";
 	int index = 0, prev_token_id = 0;
 
 	struct node *head;
@@ -36,37 +35,42 @@ START_TEST(test_shunting_yard)
 	const char *result = analyze_linked_list(head);
 	printf("%s\n", result);
 
-	struct node *con = head;
-
-	while(con != 0)
-	{
-		printf("token id: %d\n", con -> t.id);
-
-		if(con -> t.id == 0)
-			printf("val: %f\n", con ->t.val);
-
-		con = con -> next;
-	}
-
     	struct node *parsed;
 	parsed = parse_linked_list(head);
-	con = parsed;
 
-	printf("*****\n");
+	struct node *test_list = malloc(sizeof(struct node));
+	test_list -> next = 0;
+	conductor = test_list;
+	
+	char *rpn = "x5+-5.6sqr/2*5x*sin/";
+	index = prev_token_id = 0;
 
-	while(con != 0)
+	while(rpn[index] != '\0')
 	{
-		printf("token id: %d\n", con -> t.id);
-		
-		if(con -> t.id == 0)
-			printf("val: %f\n", con ->t.val);
-
-		con = con -> next;
+		conductor -> t = get_next_token(rpn, &index,
+			&prev_token_id);
+	
+		if(rpn[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
 	}
 
- 	ck_assert_msg(0 == 0);
+	conductor = test_list;
+	struct node *conductor2 = parsed;
+
+	while(conductor != 0)
+	{
+		ck_assert_msg(conductor -> t.id == conductor2 -> t.id);
+		conductor = conductor -> next;
+		conductor2 = conductor2 -> next;
+	}
+
 
 	free_list(head);
+	free_list(test_list);
 	free_list(parsed);
 }
 END_TEST

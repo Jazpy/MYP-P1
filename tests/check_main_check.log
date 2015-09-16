@@ -16,11 +16,4 @@ sinx says:
 can't have anything other than an opening parenthesis after a function
  ShuntingYard
 s
-token id: 8
-token id: 2
-token id: 1
-token id: 9
-*****
-token id: 1
-token id: 2
 100%: Checks: 10, Failures: 0, Errors: 0
