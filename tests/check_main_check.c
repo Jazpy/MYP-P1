@@ -10,13 +10,35 @@
 
 START_TEST(test_shunting_yard)
 {
+	char *test_string = "-(x+5)/sqr(5.64)";
+	int index = 0, prev_token_id = 0;
+
 	struct node *head;
-    	struct tree_node *root;
-	root = parse_linked_list(head);
+	struct node *conductor;
+	head = malloc(sizeof(struct node));
+	head -> next = 0;
+	conductor = head;
 
- 	ck_assert_msg(root == 0);
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
 
-	free_tree(root);
+    	struct node *parsed;
+	parsed = parse_linked_list(head);
+
+ 	ck_assert_msg(0 == 0);
+
+	free_list(head);
+	free_list(parsed);
 }
 END_TEST
 

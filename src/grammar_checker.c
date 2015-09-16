@@ -43,8 +43,7 @@ const char *analyze_linked_list(struct node *root)
 				"something other than an operator";
 		}
 		
-		if(prev_id == 2 && (curr_id != 0 && curr_id != 1 &&
-			curr_id != 8 && !(curr_id <= 16 && curr_id >= 10)))
+		if(prev_id == 2 && ((curr_id >= 3 && curr_id <= 7) || curr_id == 9))
 		{
 			return "can't negate something other than number, "
 				"variable, or expression";
