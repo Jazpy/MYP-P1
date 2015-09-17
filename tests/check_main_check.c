@@ -10,7 +10,7 @@
 
 START_TEST(test_binary_tree_gen)
 {
-	char *test_string = "(-(x+5)/sqr(5.64))*2/sin(5*x)";
+	char *test_string = "(-(x+5)/sqr(9))*2/sin(3.14159/2)";
 	int index = 0, prev_token_id = 0;
 
 	struct node *head;
@@ -40,7 +40,11 @@ START_TEST(test_binary_tree_gen)
 
 	struct tree_node *tree = make_tree(parsed);
 
-	
+	struct tree_result result_tree = evaluate_tree(tree, 1);
+
+	printf("%s\n", result_tree.str);
+	printf("%f\n", result_tree.val);
+	ck_assert_msg(result_tree.val == -4);
 	
 	free_list(head);
 	free_list(parsed);

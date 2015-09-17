@@ -114,9 +114,9 @@ struct tree_result evaluate_tree(struct tree_node *root, float xval)
 	if(root -> t.id >= 3 && root -> t.id <= 7)
 	{
 		struct tree_result val1 =
-			evaluate_tree(root -> left, xval);
-		struct tree_result val2 =
 			evaluate_tree(root -> right, xval);
+		struct tree_result val2 =
+			evaluate_tree(root -> left, xval);
 
 		if(strcmp(val1.str, "s") != 0)
 			return val1;
@@ -194,7 +194,7 @@ struct tree_result evaluate_tree(struct tree_node *root, float xval)
 			case 2:
 			{
 				ret.str = "s";
-				ret.val = 0 - val.val;
+				ret.val = 0.0f - val.val;
 
 				return ret;
 			}
