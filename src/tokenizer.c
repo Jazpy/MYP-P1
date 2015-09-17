@@ -45,7 +45,8 @@ struct token get_next_token(char *str, int *index, int *prev_token_id)
 		//That is, if it's first char or previous char is
 		//any operator other than ')'
 		//Else, it's a binary '-'
-		if(*index == 0 || (*prev_token_id > 1 && *prev_token_id < 9))
+		if(*index == 0 || (*prev_token_id > 1 &&
+			*prev_token_id < 9))
 		{
 			ret.id = 2;
 		} else {
