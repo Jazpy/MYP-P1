@@ -8,6 +8,47 @@
 #include "../src/linked_list.h"
 #include "../src/binary_tree.h"
 
+START_TEST(test_binary_tree_gen)
+{
+	char *test_string = "(-(x+5)/sqr(5.64))*2/sin(5*x)";
+	int index = 0, prev_token_id = 0;
+
+	struct node *head;
+	struct node *conductor;
+	head = malloc(sizeof(struct node));
+	head -> next = 0;
+	conductor = head;
+
+	while(test_string[index] != '\0')
+	{
+		conductor -> t = get_next_token(test_string, &index,
+			&prev_token_id);
+	
+		if(test_string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	const char *result = analyze_linked_list(head);
+	printf("%s\n", result);
+
+    	struct node *parsed;
+	parsed = parse_linked_list(head);
+
+	struct tree_node *tree = make_tree(parsed);
+
+	
+	
+	free_list(head);
+	free_list(parsed);
+	free_tree(tree);
+}
+END_TEST
+
+
 START_TEST(test_shunting_yard2)
 {
 	char *test_string = "5";
@@ -449,6 +490,7 @@ Suite *shunting_yard_suite()
 
 	tcase_add_test(tc_shunting_yard, test_shunting_yard);
 	tcase_add_test(tc_shunting_yard, test_shunting_yard2);
+	tcase_add_test(tc_shunting_yard, test_binary_tree_gen);
 	suite_add_tcase(s, tc_shunting_yard);
 
 	return s;

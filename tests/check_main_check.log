@@ -17,4 +17,5 @@ can't have anything other than an opening parenthesis after a function
  ShuntingYard
 s
 s
-100%: Checks: 11, Failures: 0, Errors: 0
+s
+100%: Checks: 12, Failures: 0, Errors: 0
