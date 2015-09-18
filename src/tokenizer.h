@@ -31,7 +31,7 @@ struct token
 
 void token_init(struct token *t);
 
-struct token get_next_token(char *str, int *index, int *prev_token_id);
+struct token get_next_token(const char *str, int *index, int *prev_token_id);
 
 
 #endif /* TOKERNIZER_H */

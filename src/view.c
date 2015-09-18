@@ -20,9 +20,16 @@ void view_init(struct view *v)
 	v -> bot_button = gtk_button_new_with_label("Bottom y");
 	gtk_widget_set_tooltip_text(v -> bot_button, "Lowest y value");
 
-	v -> button_box = gtk_vbox_new(1, 15);
+	v -> eq_box = gtk_hbox_new(0, 15);
+	v -> eq_text = gtk_entry_new();
 
-	gtk_box_pack_start(GTK_BOX(v -> button_box), v -> submit_button,
+	gtk_box_pack_start(GTK_BOX(v -> eq_box), v -> submit_button,
+		0, 0, 0);
+	gtk_box_pack_start(GTK_BOX(v -> eq_box), v -> eq_text,
+		0, 0, 0);
+
+	v -> button_box = gtk_vbox_new(1, 15);
+	gtk_box_pack_start(GTK_BOX(v -> button_box), v -> eq_box,
 		0, 0, 0);
 	gtk_box_pack_start(GTK_BOX(v -> button_box), v -> left_button,
 		0, 0, 0);

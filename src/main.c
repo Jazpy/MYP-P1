@@ -8,8 +8,9 @@
 #include "binary_tree.h"
 #include "shunting_yard.h"
 
-void sub_button_clicked(GtkWidget *widget, char *string)
+void sub_button_clicked(GtkWidget *widget, GtkWidget *text_box)
 {
+	const char *string = gtk_entry_get_text(GTK_ENTRY(text_box));
 	//TOKENIZAN
 	int index = 0, prev_token_id = 0;
 	struct node *token_head;
@@ -41,7 +42,7 @@ void sub_button_clicked(GtkWidget *widget, char *string)
             		GTK_DIALOG_DESTROY_WITH_PARENT,
             		GTK_MESSAGE_ERROR,
             		GTK_BUTTONS_OK,
-            		result);
+            		"%s", result);
   		gtk_window_set_title(GTK_WINDOW(dialog), "Error");
   		gtk_dialog_run(GTK_DIALOG(dialog));
 		gtk_widget_destroy(dialog);
@@ -114,7 +115,8 @@ int main(int argc, char *argv[])
 	g_signal_connect(v.window, "destroy",
 		G_CALLBACK(gtk_main_quit), NULL);
 	g_signal_connect(v.submit_button, "clicked", 
-      		G_CALLBACK(sub_button_clicked), "sin");
+      		G_CALLBACK(sub_button_clicked),
+		GTK_ENTRY(v.eq_text));
 	g_signal_connect(v.left_button, "clicked", 
       		G_CALLBACK(left_button_clicked), NULL); 
 	g_signal_connect(v.right_button, "clicked", 

@@ -30,7 +30,7 @@ void token_init(struct token *t)
 	t -> val = 0;
 }
 
-struct token get_next_token(char *str, int *index, int *prev_token_id)
+struct token get_next_token(const char *str, int *index, int *prev_token_id)
 {
 	struct token ret;
 	token_init(&ret);
