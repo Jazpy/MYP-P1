@@ -3,10 +3,10 @@
 void view_init(struct view *v)
 {
 	v -> window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_widget_set_size_request(v -> window, 1200, 750);
+	gtk_widget_set_size_request(v -> window, 1000, 600);
 
 	gtk_window_set_title(GTK_WINDOW(v -> window), "GRAPHINATOR");
-	gtk_window_set_default_size(GTK_WINDOW(v -> window), 1200, 750);
+	gtk_window_set_default_size(GTK_WINDOW(v -> window), 1000, 600);
 	gtk_window_set_position(GTK_WINDOW(v -> window), GTK_WIN_POS_CENTER);
 	gtk_container_set_border_width(GTK_CONTAINER(v -> window), 15);
 

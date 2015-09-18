@@ -86,9 +86,9 @@ subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
 	$(top_srcdir)/doc/doxyfile.in $(top_srcdir)/build/depcomp \
-	$(top_srcdir)/build/test-driver COPYING INSTALL build/compile \
-	build/config.guess build/config.sub build/depcomp \
-	build/install-sh build/missing build/ltmain.sh \
+	$(top_srcdir)/build/test-driver AUTHORS COPYING INSTALL NEWS \
+	build/compile build/config.guess build/config.sub \
+	build/depcomp build/install-sh build/missing build/ltmain.sh \
 	$(top_srcdir)/build/compile $(top_srcdir)/build/config.guess \
 	$(top_srcdir)/build/config.sub $(top_srcdir)/build/install-sh \
 	$(top_srcdir)/build/ltmain.sh $(top_srcdir)/build/missing
@@ -105,12 +105,12 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES = doc/doxyfile
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-lib_libedd_la_LIBADD =
+lib_libmg_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_lib_libedd_la_OBJECTS = src/tokenizer.lo src/binary_tree.lo \
+am_lib_libmg_la_OBJECTS = src/tokenizer.lo src/binary_tree.lo \
 	src/shunting_yard.lo src/linked_list.lo src/grammar_checker.lo \
 	src/view.lo
-lib_libedd_la_OBJECTS = $(am_lib_libedd_la_OBJECTS)
+lib_libmg_la_OBJECTS = $(am_lib_libmg_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -124,14 +124,14 @@ src_main_OBJECTS = $(am_src_main_OBJECTS)
 am__DEPENDENCIES_1 =
 am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 src_main_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(top_builddir)/lib/libedd.la $(am__DEPENDENCIES_2)
+	$(top_builddir)/lib/libmg.la $(am__DEPENDENCIES_2)
 src_main_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(src_main_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 am_tests_test_main_OBJECTS =  \
 	tests/tests_test_main-test-main.$(OBJEXT)
 tests_test_main_OBJECTS = $(am_tests_test_main_OBJECTS)
-am__DEPENDENCIES_3 = $(top_builddir)/lib/libedd.la \
+am__DEPENDENCIES_3 = $(top_builddir)/lib/libmg.la \
 	$(am__DEPENDENCIES_2)
 tests_test_main_DEPENDENCIES = $(am__DEPENDENCIES_3)
 tests_test_main_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
@@ -172,9 +172,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(lib_libedd_la_SOURCES) $(src_main_SOURCES) \
+SOURCES = $(lib_libmg_la_SOURCES) $(src_main_SOURCES) \
 	$(tests_test_main_SOURCES)
-DIST_SOURCES = $(lib_libedd_la_SOURCES) $(src_main_SOURCES) \
+DIST_SOURCES = $(lib_libmg_la_SOURCES) $(src_main_SOURCES) \
 	$(tests_test_main_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -546,12 +546,12 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = subdir-objects
-AM_CFLAGS = -std=c99 -D_GNU_SOURCE -Wall $(CFLAGS) -I$(top_srcdir)/lib
+AM_CFLAGS = -std=c99 -D_GNU_SOURCE $(CFLAGS) -I$(top_srcdir)/lib
 AM_CPPFLAGS = ${GTK_CFLAGS}
 AM_LDFLAGS = -lrt -lm $(LDFLAGS)
-noinst_LTLIBRARIES = lib/libedd.la
+noinst_LTLIBRARIES = lib/libmg.la
 END_LIST = 
-lib_libedd_la_SOURCES = \
+lib_libmg_la_SOURCES = \
 	src/tokenizer.c		\
 	src/tokenizer.h		\
 	src/binary_tree.c	\
@@ -565,15 +565,15 @@ lib_libedd_la_SOURCES = \
 	src/view.h		\
 	src/view.c		
 
-src_main_LDADD = ${GTK_LIBS} $(top_builddir)/lib/libedd.la $(AM_LDFLAGS)
+src_main_LDADD = ${GTK_LIBS} $(top_builddir)/lib/libmg.la $(AM_LDFLAGS)
 src_main_CFLAGS = $(AM_CFLAGS)
 src_main_SOURCES = src/main.c
 TEST_CFLAGS = $(AM_CFLAGS) @CHECK_CFLAGS@
-TEST_LDADD = $(top_builddir)/lib/libedd.la @CHECK_LIBS@ $(AM_LDFLAGS)
+TEST_LDADD = $(top_builddir)/lib/libmg.la @CHECK_LIBS@ $(AM_LDFLAGS)
 tests_test_main_SOURCES = tests/test-main.c
 tests_test_main_CFLAGS = $(TEST_CFLAGS)
 tests_test_main_LDADD = $(TEST_LDADD)
-EXTRA_DIST = doc/edd.dox doc/logo-cc.png
+EXTRA_DIST = doc/MG.dox
 all: all-am
 
 .SUFFIXES:
@@ -643,8 +643,8 @@ lib/$(am__dirstamp):
 	@$(MKDIR_P) lib
 	@: > lib/$(am__dirstamp)
 
-lib/libedd.la: $(lib_libedd_la_OBJECTS) $(lib_libedd_la_DEPENDENCIES) $(EXTRA_lib_libedd_la_DEPENDENCIES) lib/$(am__dirstamp)
-	$(AM_V_CCLD)$(LINK)  $(lib_libedd_la_OBJECTS) $(lib_libedd_la_LIBADD) $(LIBS)
+lib/libmg.la: $(lib_libmg_la_OBJECTS) $(lib_libmg_la_DEPENDENCIES) $(EXTRA_lib_libmg_la_DEPENDENCIES) lib/$(am__dirstamp)
+	$(AM_V_CCLD)$(LINK)  $(lib_libmg_la_OBJECTS) $(lib_libmg_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \

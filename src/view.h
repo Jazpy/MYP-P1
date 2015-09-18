@@ -1,8 +1,22 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+/**
+ * @file view.h
+ *
+ * @brief view handler
+ * 
+ * handles almost all GtkWidgets
+ */
+
+
 #include <gtk/gtk.h>
 
+/**
+ * @brief view handler struct
+ * 
+ * contains associated GtkWidgets
+ */
 struct view
 {
 	GtkWidget *window, *drawing_area;
@@ -14,6 +28,11 @@ struct view
 	GtkWidget *eq_text;
 };
 
+/**
+ * @brief initializes view struct
+ * 
+ * param v view to initialize
+ */
 void view_init(struct view *v);
 
 #endif /* VIEW_H */
