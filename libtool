@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # libtool - Provide generalized library-building support services.
-# Generated automatically by config.status (p1) 0.3
+# Generated automatically by config.status (edd) 2014.2
 # Libtool was configured on host manedesk:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
@@ -96,7 +96,7 @@ NM="/usr/bin/nm -B"
 LN_S="ln -s"
 
 # What is the maximum length of a command?
-max_cmd_len=3458764513820540925
+max_cmd_len=1572864
 
 # Object file suffix (normally "o").
 objext=o
@@ -399,7 +399,7 @@ hardcode_automatic=no
 inherit_rpath=no
 
 # Whether libtool must link a program against all its dependency libraries.
-link_all_deplibs=no
+link_all_deplibs=unknown
 
 # Set to "yes" if exported symbols are required.
 always_export_symbols=no

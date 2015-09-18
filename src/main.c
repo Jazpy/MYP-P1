@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cairo.h>
 #include "tokenizer.h"
 #include "view.h"
 #include "grammar_checker.h"

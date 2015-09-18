@@ -1,4 +1,4 @@
-binary_tree.lo: binary_tree.c /usr/include/stdc-predef.h \
+src/binary_tree.lo: src/binary_tree.c /usr/include/stdc-predef.h \
  /usr/include/stdlib.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -11,7 +11,7 @@ binary_tree.lo: binary_tree.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap-16.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap-16.h /usr/include/xlocale.h \
  /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/time.h \
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
@@ -31,10 +31,10 @@ binary_tree.lo: binary_tree.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/mathdef.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h /usr/include/string.h \
- /usr/include/xlocale.h /usr/include/x86_64-linux-gnu/bits/string.h \
+ /usr/include/x86_64-linux-gnu/bits/string.h \
  /usr/include/x86_64-linux-gnu/bits/string2.h \
- /usr/include/x86_64-linux-gnu/bits/string3.h binary_tree.h tokenizer.h \
- linked_list.h
+ /usr/include/x86_64-linux-gnu/bits/string3.h src/binary_tree.h \
+ src/tokenizer.h src/linked_list.h
 
 /usr/include/stdc-predef.h:
 
@@ -67,6 +67,8 @@ binary_tree.lo: binary_tree.c /usr/include/stdc-predef.h \
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap-16.h:
+
+/usr/include/xlocale.h:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
@@ -114,16 +116,14 @@ binary_tree.lo: binary_tree.c /usr/include/stdc-predef.h \
 
 /usr/include/string.h:
 
-/usr/include/xlocale.h:
-
 /usr/include/x86_64-linux-gnu/bits/string.h:
 
 /usr/include/x86_64-linux-gnu/bits/string2.h:
 
 /usr/include/x86_64-linux-gnu/bits/string3.h:
 
-binary_tree.h:
+src/binary_tree.h:
 
-tokenizer.h:
+src/tokenizer.h:
 
-linked_list.h:
+src/linked_list.h:

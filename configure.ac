@@ -1,54 +1,49 @@
-# Process this file with autoconf to produce a configure script.
-
-# Prelude.
-AC_PREREQ([2.59])
-AC_INIT([P1], [0.3], [check-devel AT lists.sourceforge.net])
-m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
-
-# Checks for libraries
-AC_CHECK_LIB(m, floor)
-AC_CHECK_LIB(rt, setitimer)
-AC_CHECK_LIB(pthread, pthread_create)
-
-# unique source file --- primitive safety check 
-AC_CONFIG_SRCDIR([src/tokenizer.c])
-
-# place to put some extra build scripts installed
-AC_CONFIG_AUX_DIR([build-aux])
-
-# fairly severe build strictness
-# change foreign to gnu or gnits to comply with gnu standards
-AM_INIT_AUTOMAKE([-Wall -Werror foreign 1.9.6])
-
-# Checks for programs.
+# Define nombre del proyecto y versión
+AC_INIT([edd], [2014.2])
+# Directorio para guardar archivos auxiliares
+AC_CONFIG_AUX_DIR([build])
+# Hace una copia de los archivos de libtool en el directorio m4
+AC_CONFIG_MACRO_DIR([m4])
+# Inicializa automake
+AM_INIT_AUTOMAKE
+# Compila sin hacer ruido
+AM_SILENT_RULES([yes])
+# Comprueba que tengamos el compilador de C
 AC_PROG_CC
+# Permite cambiar las banderas de compilación para cada objetivo
+AM_PROG_CC_C_O
+# Comprueba que tengamos libtool
 AC_PROG_LIBTOOL
-
-# Checks for libraries.
-
-# This macro is defined in check.m4 and tests if check.h and
-# libcheck.a are installed in your system. It sets CHECK_CFLAGS and
-# CHECK_LIBS accordingly.  
-#  AM_PATH_CHECK([MINIMUM-VERSION,
-#                [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-# Deprecated: AM_PATH_CHECK()
-PKG_CHECK_MODULES([CHECK], [check >= 0.9.4])
-
-# Checks for header files.
-AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h])
-
-# Checks for typedefs, structures, and compiler characteristics.
-
-# Checks for library functions.
-AC_FUNC_MALLOC
-
-# Output files
-AC_CONFIG_HEADERS([config.h])
-
-AC_CONFIG_FILES([Makefile
-                 src/Makefile
-                 tests/Makefile])
+# Inicializa libtool (con él creamos la biblioteca libpractica)
+LT_INIT
+# Check es necesario para las pruebas unitarias.
+AC_ARG_WITH([check],
+    AS_HELP_STRING([--without-check],
+                   [No usar check incluso si está disponible]))
+# Si el usuario quiere check, vemos si está disponible.
+AS_IF([test "x$with_check" != "xno"],
+      [PKG_CHECK_MODULES([CHECK], [check],
+                         [have_check=yes], [have_check=no])],
+      [have_check=no])
+# Si check está disponible...
+AS_IF([test "x$have_check" = "xyes"],
+      # Lo usamos si el usuario no pidió --withouth-check.
+      [],
+      # Error: el usuario lo pidió, pero no está.
+      [AS_IF([test "x$with_check" = "xyes"],
+             [AC_MSG_ERROR([check no está disponible]) ]) ])
+# Doxygen para la documentación
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+AS_IF([test -z "$DOXYGEN"],
+      [have_doxygen=no],
+      [have_doxygen=yes])
+AS_IF([test "x$have_doxygen" = "xno"],
+      [AC_MSG_WARN([Doxygen no encontrado - no se generará la documentación]) ])
+AM_CONDITIONAL([HAVE_DOXYGEN], 
+               [test -n "$DOXYGEN"])
+AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([doc/doxyfile]) ])
+# Le pedimos que genere los Makefiles
+AC_CONFIG_FILES([ Makefile ])
 
 dnl Test for pkg-config
 PKG_PROG_PKG_CONFIG([0.22])

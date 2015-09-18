@@ -1,10 +1,10 @@
-grammar_checker.lo: grammar_checker.c /usr/include/stdc-predef.h \
- grammar_checker.h linked_list.h tokenizer.h
+src/grammar_checker.lo: src/grammar_checker.c /usr/include/stdc-predef.h \
+ src/grammar_checker.h src/linked_list.h src/tokenizer.h
 
 /usr/include/stdc-predef.h:
 
-grammar_checker.h:
+src/grammar_checker.h:
 
-linked_list.h:
+src/linked_list.h:
 
-tokenizer.h:
+src/tokenizer.h:

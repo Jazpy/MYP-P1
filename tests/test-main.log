@@ -1,0 +1,23 @@
+Running suite(s): Tokenizer
+ Grammar
+(-(x+5)/sqr(5.64))*2 says:
+s
+)x+5 says:
+can't start an equation with a closing parenthesis
+(()()(()))) says:
+mismatched parenthesis
+(x+5)6 says:
+can't have anything other than an operator or a closing parenthesis right after a closing parenthesis
+(+x+5) says:
+can't have an operator right after an opening parenthesis
+son(x) says:
+unrecognized expression, please refer to the README
+sinx says:
+can't have anything other than an opening parenthesis after a function
+ ShuntingYard
+s
+s
+s
+s
+-4.000000
+100%: Checks: 12, Failures: 0, Errors: 0
