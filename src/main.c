@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "tokenizer.h"
 #include "view.h"
 #include "grammar_checker.h"
@@ -105,7 +106,20 @@ void update_draw()
 
 void sub_button_clicked(GtkWidget *widget, GtkWidget *text_box)
 {
-	const char *string = gtk_entry_get_text(GTK_ENTRY(text_box));
+	char *string = gtk_entry_get_text(GTK_ENTRY(text_box));
+	
+	//remove whitespace
+	char* i = string;
+  	char* j = string;
+  	while(*j != '\0')
+  	{
+    		*i = *j++;
+
+    		if(!isspace(*i))
+      			i++;
+  	}
+
+  	*i = 0;
 	
 	if(strcmp(string, "") == 0)
 	{
