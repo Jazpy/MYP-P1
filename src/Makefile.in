@@ -122,7 +122,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmain_check_la_LIBADD =
 am_libmain_check_la_OBJECTS = tokenizer.lo grammar_checker.lo \
-	shunting_yard.lo binary_tree.lo linked_list.lo
+	shunting_yard.lo binary_tree.lo linked_list.lo view.lo
 libmain_check_la_OBJECTS = $(am_libmain_check_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -131,7 +131,8 @@ am__v_lt_1 =
 PROGRAMS = $(bin_PROGRAMS)
 am_main_OBJECTS = main.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
-main_DEPENDENCIES = libmain_check.la
+am__DEPENDENCIES_1 =
+main_DEPENDENCIES = $(am__DEPENDENCIES_1) libmain_check.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -221,6 +222,8 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -251,6 +254,9 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -310,9 +316,10 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LTLIBRARIES = libmain_check.la
-libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h binary_tree.c binary_tree.h linked_list.c linked_list.h
+libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h binary_tree.c binary_tree.h linked_list.c linked_list.h view.c view.h
 main_SOURCES = main.c
-main_LDADD = libmain_check.la
+AM_CPPFLAGS = ${GTK_CFLAGS}
+main_LDADD = ${GTK_LIBS} libmain_check.la
 all: all-am
 
 .SUFFIXES:
@@ -451,6 +458,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shunting_yard.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tokenizer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/view.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

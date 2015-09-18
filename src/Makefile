@@ -122,7 +122,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmain_check_la_LIBADD =
 am_libmain_check_la_OBJECTS = tokenizer.lo grammar_checker.lo \
-	shunting_yard.lo binary_tree.lo linked_list.lo
+	shunting_yard.lo binary_tree.lo linked_list.lo view.lo
 libmain_check_la_OBJECTS = $(am_libmain_check_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -131,7 +131,8 @@ am__v_lt_1 =
 PROGRAMS = $(bin_PROGRAMS)
 am_main_OBJECTS = main.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
-main_DEPENDENCIES = libmain_check.la
+am__DEPENDENCIES_1 =
+main_DEPENDENCIES = $(am__DEPENDENCIES_1) libmain_check.la
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -204,8 +205,8 @@ AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CHECK_CFLAGS = 
-CHECK_LIBS = -lcheck
+CHECK_CFLAGS = -pthread  
+CHECK_LIBS = -pthread -lcheck_pic -lrt -lm  
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -221,6 +222,8 @@ EGREP = /bin/grep -E
 EXEEXT = 
 FGREP = /bin/grep -F
 GREP = /bin/grep
+GTK_CFLAGS = -pthread -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/freetype2 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/harfbuzz  
+GTK_LIBS = -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfontconfig -lgobject-2.0 -lglib-2.0 -lfreetype  
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -251,16 +254,19 @@ PACKAGE_TARNAME = p1
 PACKAGE_URL = 
 PACKAGE_VERSION = 0.3
 PATH_SEPARATOR = :
+PKG_CONFIG = /usr/bin/pkg-config
+PKG_CONFIG_LIBDIR = 
+PKG_CONFIG_PATH = 
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.3
-abs_builddir = /home/jaz/Documents/MYP/P1/src
-abs_srcdir = /home/jaz/Documents/MYP/P1/src
-abs_top_builddir = /home/jaz/Documents/MYP/P1
-abs_top_srcdir = /home/jaz/Documents/MYP/P1
+abs_builddir = /home/jaz/Documents/MYP/MYP-P1/src
+abs_srcdir = /home/jaz/Documents/MYP/MYP-P1/src
+abs_top_builddir = /home/jaz/Documents/MYP/MYP-P1
+abs_top_srcdir = /home/jaz/Documents/MYP/MYP-P1
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -310,9 +316,10 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 lib_LTLIBRARIES = libmain_check.la
-libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h binary_tree.c binary_tree.h linked_list.c linked_list.h
+libmain_check_la_SOURCES = tokenizer.c tokenizer.h grammar_checker.c grammar_checker.h shunting_yard.c shunting_yard.h binary_tree.c binary_tree.h linked_list.c linked_list.h view.c view.h
 main_SOURCES = main.c
-main_LDADD = libmain_check.la
+AM_CPPFLAGS = ${GTK_CFLAGS}
+main_LDADD = ${GTK_LIBS} libmain_check.la
 all: all-am
 
 .SUFFIXES:
@@ -451,6 +458,7 @@ include ./$(DEPDIR)/linked_list.Plo
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/shunting_yard.Plo
 include ./$(DEPDIR)/tokenizer.Plo
+include ./$(DEPDIR)/view.Plo
 
 .c.o:
 	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

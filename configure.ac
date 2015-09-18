@@ -31,7 +31,8 @@ AC_PROG_LIBTOOL
 # CHECK_LIBS accordingly.  
 #  AM_PATH_CHECK([MINIMUM-VERSION,
 #                [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-AM_PATH_CHECK()
+# Deprecated: AM_PATH_CHECK()
+PKG_CHECK_MODULES([CHECK], [check >= 0.9.4])
 
 # Checks for header files.
 AC_HEADER_STDC
@@ -48,5 +49,10 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  tests/Makefile])
+
+dnl Test for pkg-config
+PKG_PROG_PKG_CONFIG([0.22])
+dnl Test for gtk+
+PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.24.23])
 
 AC_OUTPUT
