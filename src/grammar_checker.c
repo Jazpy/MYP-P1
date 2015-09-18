@@ -52,7 +52,7 @@ char *analyze_linked_list(struct node *root)
 		if((prev_id >= 3 && prev_id <= 7) && 
 			(curr_id != 0 && curr_id != 1) &&
 			!(curr_id >= 10 && curr_id <= 16) && 
-			curr_id != 2)
+			curr_id != 2 && curr_id != 8)
 		{
 			return "can't have something other than number "
 				"or variable after binary operator";
