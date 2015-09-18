@@ -344,7 +344,7 @@ START_TEST(test_grammar_check_bad_paren)
 	const char *result = analyze_linked_list(root);
 	printf("(()()(()))) says:\n");
 	printf("%s\n", result);
-	ck_assert_msg(strcmp(result, "mismatched parenthesis") == 0, "failed 1");
+	ck_assert_msg(strcmp(result, "mismatched parentheses") == 0, "failed 1");
 
 	free_list(root);
 }

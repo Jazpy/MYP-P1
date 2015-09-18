@@ -16,7 +16,7 @@ char *analyze_linked_list(struct node *root)
 		return "unrecognized expression, please refer to the README";
 
 	if(paren_pass(root) == -1)
-		return "mismatched parenthesis";
+		return "mismatched parentheses";
 
 	while(curr_node -> next != 0)
 	{
@@ -85,7 +85,7 @@ char *analyze_linked_list(struct node *root)
 			return "s";
 
 		return "Invalid end to expression, should be var, "
-			"number, or closing parenthesis";
+			"number, or closing parentheses";
 	}
 
 	return "s";
