@@ -20,7 +20,7 @@ void free_tree(struct tree_node *node)
 
 struct tree_node *make_tree(struct node *head)
 {
-	struct tree_node_list *stack;
+	struct tree_node_list *stack = 0;
 
 	while(head != 0)
 	{
@@ -110,6 +110,9 @@ struct tree_result evaluate_tree(struct tree_node *root, float xval)
 	struct tree_result ret;
 	ret.str = "undefined error";
 	ret.val = 0;
+
+	if(root == 0)
+		return ret;
 
 	if(root -> t.id >= 3 && root -> t.id <= 7)
 	{

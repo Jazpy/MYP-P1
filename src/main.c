@@ -12,6 +12,12 @@ static struct tree_node *main_tree = 0;
 static GtkWidget *main_draw = 0;
 static GtkWidget *main_window = 0;
 static GdkPixmap *pixmap = 0;
+static float leftx, rightx, topy, boty;
+
+struct tree_result get_tree_value(float xval)
+{
+	return evaluate_tree(main_tree, xval);
+}
 
 void update_draw()
 {
@@ -25,6 +31,34 @@ void update_draw()
 	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
 		width / 2, 0,
 		width / 2, height);
+
+	float range = rightx - leftx;
+	float step = range / width;
+	float yscale = height / (topy - boty);
+
+	for(int i = 0; i != width; ++i)
+	{
+		struct tree_result result = get_tree_value(leftx + i * step);
+
+		if(strcmp(result.str, "s") != 0)
+		{
+			GtkWidget *dialog;
+  			dialog = gtk_message_dialog_new(NULL,
+            			GTK_DIALOG_DESTROY_WITH_PARENT,
+            			GTK_MESSAGE_ERROR,
+            			GTK_BUTTONS_OK,
+            			"%s", result.str);
+  			gtk_window_set_title(GTK_WINDOW(dialog), "Error");
+  			gtk_dialog_run(GTK_DIALOG(dialog));
+			gtk_widget_destroy(dialog);
+
+			return;
+		}
+
+		float y = height / 2 - (result.val * yscale);
+
+		gdk_draw_point(pixmap, main_draw -> style -> black_gc, i, y);
+	}
 
 	gtk_widget_queue_draw(main_draw);
 }
@@ -150,28 +184,30 @@ static gboolean expose_event(GtkWidget *widget, GdkEventExpose *event)
 	return FALSE;
 }
 
-void left_button_clicked(GtkWidget *widget, gpointer window)
+void left_button_clicked(GtkSpinButton *widget, gpointer data)
 {
-	
+	leftx = gtk_spin_button_get_value(widget);
 }
 
-void right_button_clicked(GtkWidget *widget, gpointer window)
+void right_button_clicked(GtkSpinButton *widget, gpointer data)
 {
-	
+	rightx = gtk_spin_button_get_value(widget);
 }
 
-void top_button_clicked(GtkWidget *widget, gpointer window)
+void top_button_clicked(GtkSpinButton *widget, gpointer data)
 {
-	
+	topy = gtk_spin_button_get_value(widget);
 }
 
-void bot_button_clicked(GtkWidget *widget, gpointer window)
+void bot_button_clicked(GtkSpinButton *widget, gpointer data)
 {
-	
+	boty = gtk_spin_button_get_value(widget);
 }
 
 int main(int argc, char *argv[])
 {
+	leftx = boty = -10.0f;
+	rightx = topy = 10.0f;
 	//DISPLAYAN
 	gtk_init(&argc, &argv);
 
@@ -190,16 +226,15 @@ int main(int argc, char *argv[])
 		G_CALLBACK(configure_event), NULL); 
 	g_signal_connect(main_draw, "expose-event",
 		G_CALLBACK(expose_event), NULL); 
-	/*
-	g_signal_connect(v.left_button, "clicked", 
+	g_signal_connect(v.left_button, "value-changed", 
       		G_CALLBACK(left_button_clicked), NULL); 
-	g_signal_connect(v.right_button, "clicked", 
+	g_signal_connect(v.right_button, "value-changed", 
       		G_CALLBACK(right_button_clicked), NULL); 
-	g_signal_connect(v.top_button, "clicked", 
+	g_signal_connect(v.top_button, "value-changed", 
       		G_CALLBACK(top_button_clicked), NULL); 
-	g_signal_connect(v.bot_button, "clicked", 
+	g_signal_connect(v.bot_button, "value-changed", 
       		G_CALLBACK(bot_button_clicked), NULL); 
-*/
+
 	gtk_widget_show_all(main_window);
 
 	gtk_main();
