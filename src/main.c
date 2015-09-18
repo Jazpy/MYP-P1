@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <cairo.h>
 #include "tokenizer.h"
 #include "view.h"
 #include "grammar_checker.h"
@@ -8,9 +9,30 @@
 #include "binary_tree.h"
 #include "shunting_yard.h"
 
+static struct tree_node *main_tree = 0;
+static GtkWidget *main_draw = 0;
+static GtkWidget *main_window = 0;
+static GdkPixmap *pixmap = 0;
+
 void sub_button_clicked(GtkWidget *widget, GtkWidget *text_box)
 {
 	const char *string = gtk_entry_get_text(GTK_ENTRY(text_box));
+	
+	if(strcmp(string, "") == 0)
+	{
+		GtkWidget *dialog;
+  		dialog = gtk_message_dialog_new(NULL,
+            		GTK_DIALOG_DESTROY_WITH_PARENT,
+            		GTK_MESSAGE_ERROR,
+            		GTK_BUTTONS_OK,
+            		"empty string");
+  		gtk_window_set_title(GTK_WINDOW(dialog), "Error");
+  		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
+
+		return;
+	}
+
 	//TOKENIZAN
 	int index = 0, prev_token_id = 0;
 	struct node *token_head;
@@ -77,10 +99,38 @@ void sub_button_clicked(GtkWidget *widget, GtkWidget *text_box)
 		return;
 	}
 
+	main_tree = tree;
+
 	//MEMORY FREEAN
 	free_list(token_head);
 	free_list(parsed);
-	free_tree(tree);
+}
+
+static gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event)
+{
+	if(pixmap)
+		g_object_unref(pixmap);
+
+	pixmap = gdk_pixmap_new(widget -> window,
+		widget -> allocation.width,
+		widget -> allocation.height, -1);
+
+	gdk_draw_rectangle(pixmap, widget -> style -> white_gc,
+		TRUE, 0, 0, widget -> allocation.width,
+		widget -> allocation.height);
+
+	return TRUE;
+}
+
+static gboolean expose_event(GtkWidget *widget, GdkEventExpose *event)
+{
+	gdk_draw_drawable(widget -> window,
+		widget -> style -> fg_gc[gtk_widget_get_state(widget)],
+		pixmap, event -> area.x, event -> area.y,
+		event -> area.x, event -> area.y,
+		event -> area.width, event -> area.height);
+
+	return FALSE;
 }
 
 void left_button_clicked(GtkWidget *widget, gpointer window)
@@ -110,13 +160,20 @@ int main(int argc, char *argv[])
 
 	struct view v;
 	view_init(&v);
-	gtk_widget_show_all(v.window);
+	main_draw = v.drawing_area;
+	main_window = v.window;
+	gtk_widget_realize(main_draw);
 
 	g_signal_connect(v.window, "destroy",
 		G_CALLBACK(gtk_main_quit), NULL);
 	g_signal_connect(v.submit_button, "clicked", 
       		G_CALLBACK(sub_button_clicked),
 		GTK_ENTRY(v.eq_text));
+	g_signal_connect(main_draw, "configure-event",
+		G_CALLBACK(configure_event), NULL); 
+	g_signal_connect(main_draw, "expose-event",
+		G_CALLBACK(expose_event), NULL); 
+	/*
 	g_signal_connect(v.left_button, "clicked", 
       		G_CALLBACK(left_button_clicked), NULL); 
 	g_signal_connect(v.right_button, "clicked", 
@@ -125,13 +182,12 @@ int main(int argc, char *argv[])
       		G_CALLBACK(top_button_clicked), NULL); 
 	g_signal_connect(v.bot_button, "clicked", 
       		G_CALLBACK(bot_button_clicked), NULL); 
+*/
+	gtk_widget_show_all(main_window);
 
 	gtk_main();
 
-	while(0)
-	{
-		
-	}
+	free_tree(main_tree);
 	
 	return 0;
 }

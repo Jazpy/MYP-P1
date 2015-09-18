@@ -5,7 +5,7 @@
 
 struct view
 {
-	GtkWidget *window;
+	GtkWidget *window, *drawing_area;
 	GtkWidget *button_box, *eq_box;
 	GtkWidget *submit_button;
 	GtkWidget *left_button, *right_button;	
