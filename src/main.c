@@ -14,6 +14,22 @@ static GtkWidget *main_draw = 0;
 static GtkWidget *main_window = 0;
 static GdkPixmap *pixmap = 0;
 
+void update_draw()
+{
+	int width = main_draw -> allocation.width;
+	int height = main_draw -> allocation.height;
+
+	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
+		0, height / 2,
+		width, height / 2);
+
+	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
+		width / 2, 0,
+		width / 2, height);
+
+	gtk_widget_queue_draw(main_draw);
+}
+
 void sub_button_clicked(GtkWidget *widget, GtkWidget *text_box)
 {
 	const char *string = gtk_entry_get_text(GTK_ENTRY(text_box));
@@ -104,6 +120,8 @@ void sub_button_clicked(GtkWidget *widget, GtkWidget *text_box)
 	//MEMORY FREEAN
 	free_list(token_head);
 	free_list(parsed);
+
+	update_draw();
 }
 
 static gboolean configure_event(GtkWidget *widget, GdkEventConfigure *event)
