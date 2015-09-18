@@ -1,6 +1,6 @@
 #include "grammar_checker.h"
 
-const char *analyze_linked_list(struct node *root)
+char *analyze_linked_list(struct node *root)
 {
 	if(root == 0)
 		return "empty equation";

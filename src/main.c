@@ -8,9 +8,78 @@
 #include "binary_tree.h"
 #include "shunting_yard.h"
 
-void sub_button_clicked(GtkWidget *widget, gpointer window)
+void sub_button_clicked(GtkWidget *widget, char *string)
 {
+	//TOKENIZAN
+	int index = 0, prev_token_id = 0;
+	struct node *token_head;
+	struct node *conductor;
+	token_head = malloc(sizeof(struct node));
+	token_head -> next = 0;
+	conductor = token_head;
+
+	while(string[index] != '\0')
+	{
+		conductor -> t = get_next_token(string, &index,
+			&prev_token_id);
 	
+		if(string[index] != '\0')
+		{
+			conductor -> next = malloc(sizeof(struct node));
+			conductor = conductor -> next;
+			conductor -> next = 0;
+		}
+	}
+
+	//ANALYZAN
+	char *result = analyze_linked_list(token_head);
+	
+	if(strcmp(result, "s") != 0)
+	{
+		GtkWidget *dialog;
+  		dialog = gtk_message_dialog_new(NULL,
+            		GTK_DIALOG_DESTROY_WITH_PARENT,
+            		GTK_MESSAGE_ERROR,
+            		GTK_BUTTONS_OK,
+            		result);
+  		gtk_window_set_title(GTK_WINDOW(dialog), "Error");
+  		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
+
+  		free_list(token_head);
+
+		return;
+	}
+
+    	struct node *parsed;
+	parsed = parse_linked_list(token_head);
+
+	//TREE GENERATAN
+	struct tree_node *tree = make_tree(parsed);
+	
+	if(tree == 0)
+	{
+		GtkWidget *dialog;
+  		dialog = gtk_message_dialog_new(NULL,
+            		GTK_DIALOG_DESTROY_WITH_PARENT,
+            		GTK_MESSAGE_ERROR,
+            		GTK_BUTTONS_OK,
+            		"error generating tree");
+  		gtk_window_set_title(GTK_WINDOW(dialog), "Error");
+  		gtk_dialog_run(GTK_DIALOG(dialog));
+  		gtk_widget_destroy(dialog);
+
+		free_list(token_head);
+		free_list(parsed);
+		free_tree(tree);
+
+		return;
+	}
+
+	//MEMORY FREEAN
+	free_list(token_head);
+	free_list(parsed);
+	free_tree(tree);
 }
 
 void left_button_clicked(GtkWidget *widget, gpointer window)
@@ -35,65 +104,6 @@ void bot_button_clicked(GtkWidget *widget, gpointer window)
 
 int main(int argc, char *argv[])
 {
-	//INPUT HANDLAN
-	char input[512];
-
-	printf("Input:\n");
-
-	if(!fgets(input, sizeof(input), stdin))
-	{
-		fprintf(stderr, "Something went wrong with handling "
-			"your input");
-
-		return -1;
-	}
-
-	input[strcspn(input, "\r\n")] = 0;
-
-	//TOKENIZAN
-	int index = 0, prev_token_id = 0;
-	struct node *token_head;
-	struct node *conductor;
-	token_head = malloc(sizeof(struct node));
-	token_head -> next = 0;
-	conductor = token_head;
-
-	while(input[index] != '\0')
-	{
-		conductor -> t = get_next_token(input, &index,
-			&prev_token_id);
-	
-		if(input[index] != '\0')
-		{
-			conductor -> next = malloc(sizeof(struct node));
-			conductor = conductor -> next;
-			conductor -> next = 0;
-		}
-	}
-
-	//ANALYZAN
-	const char *result = analyze_linked_list(token_head);
-	
-	if(strcmp(result, "s") != 0)
-	{
-		fprintf(stderr, "%s\n", result);
-
-		return -1;
-	}
-
-    	struct node *parsed;
-	parsed = parse_linked_list(token_head);
-
-	//TREE GENERATAN
-	struct tree_node *tree = make_tree(parsed);
-	
-	if(tree == 0)
-	{
-		fprintf(stderr, "error generating tree");
-
-		return -1;
-	}
-
 	//DISPLAYAN
 	gtk_init(&argc, &argv);
 
@@ -104,7 +114,7 @@ int main(int argc, char *argv[])
 	g_signal_connect(v.window, "destroy",
 		G_CALLBACK(gtk_main_quit), NULL);
 	g_signal_connect(v.submit_button, "clicked", 
-      		G_CALLBACK(sub_button_clicked), NULL);
+      		G_CALLBACK(sub_button_clicked), "sin");
 	g_signal_connect(v.left_button, "clicked", 
       		G_CALLBACK(left_button_clicked), NULL); 
 	g_signal_connect(v.right_button, "clicked", 
@@ -121,10 +131,5 @@ int main(int argc, char *argv[])
 		
 	}
 	
-	//MEMORY FREEAN
-	free_list(token_head);
-	free_list(parsed);
-	free_tree(tree);
-
 	return 0;
 }

@@ -3,7 +3,7 @@
 
 #include "linked_list.h"
 
-const char *analyze_linked_list(struct node *root);
+char *analyze_linked_list(struct node *root);
 
 int paren_pass(struct node *root);
 
