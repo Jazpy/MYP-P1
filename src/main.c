@@ -13,6 +13,16 @@ static GtkWidget *main_draw = 0;
 static GtkWidget *main_window = 0;
 static GdkPixmap *pixmap = 0;
 static float leftx, rightx, topy, boty;
+static int to_clear;
+
+void clear()
+{
+	gdk_draw_rectangle(pixmap, main_draw -> style -> white_gc,
+		TRUE, 0, 0, main_draw -> allocation.width,
+		main_draw -> allocation.height);
+
+	gtk_widget_queue_draw(main_draw);
+}
 
 struct tree_result get_tree_value(float xval)
 {
@@ -21,43 +31,73 @@ struct tree_result get_tree_value(float xval)
 
 void update_draw()
 {
+	int did_draw = 0;
+	if(to_clear)
+	{
+		clear();
+		to_clear = 0;
+	}
+
 	int width = main_draw -> allocation.width;
 	int height = main_draw -> allocation.height;
-
-	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
-		0, height / 2,
-		width, height / 2);
-
-	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
-		width / 2, 0,
-		width / 2, height);
 
 	float range = rightx - leftx;
 	float step = range / width;
 	float yscale = height / (topy - boty);
+	float xppu = width / range;
+	
+	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
+		0, yscale * (topy),
+		width, yscale * (topy));
+
+	gdk_draw_line(pixmap, main_draw -> style -> black_gc,
+		xppu * (range - rightx), 0,
+		xppu * (range - rightx), height);
+
+	struct tree_result result;
+
+	int prev_x, prev_y; 
 
 	for(int i = 0; i != width; ++i)
 	{
-		struct tree_result result = get_tree_value(leftx + i * step);
+		result = get_tree_value(leftx + i * step);
 
 		if(strcmp(result.str, "s") != 0)
-		{
-			GtkWidget *dialog;
-  			dialog = gtk_message_dialog_new(NULL,
-            			GTK_DIALOG_DESTROY_WITH_PARENT,
-            			GTK_MESSAGE_ERROR,
-            			GTK_BUTTONS_OK,
-            			"%s", result.str);
-  			gtk_window_set_title(GTK_WINDOW(dialog), "Error");
-  			gtk_dialog_run(GTK_DIALOG(dialog));
-			gtk_widget_destroy(dialog);
+			continue;
 
-			return;
+		int y = height / 2 - (result.val * yscale);
+
+		if(did_draw && abs(y - prev_y) < height)
+		{
+			gdk_draw_line(pixmap, main_draw -> style -> black_gc,
+				prev_x, prev_y, i, y);
+
+			prev_x = i;
+			prev_y = y;
+		} else {
+			gdk_draw_point(pixmap, main_draw -> style -> black_gc,
+				i, y);
+
+			prev_x = i;
+			prev_y = y;
 		}
 
-		float y = height / 2 - (result.val * yscale);
+		did_draw = 1;
+	}
 
-		gdk_draw_point(pixmap, main_draw -> style -> black_gc, i, y);
+	if(!did_draw)
+	{
+		GtkWidget *dialog;
+  		dialog = gtk_message_dialog_new(NULL,
+            		GTK_DIALOG_DESTROY_WITH_PARENT,
+            		GTK_MESSAGE_ERROR,
+            		GTK_BUTTONS_OK,
+            		"%s", result.str);
+  		gtk_window_set_title(GTK_WINDOW(dialog), "Error");
+  		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
+
+		return ;
 	}
 
 	gtk_widget_queue_draw(main_draw);
@@ -184,23 +224,32 @@ static gboolean expose_event(GtkWidget *widget, GdkEventExpose *event)
 	return FALSE;
 }
 
+void clear_button_clicked(GtkWidget *widget, gpointer data)
+{
+	clear();
+}
+
 void left_button_clicked(GtkSpinButton *widget, gpointer data)
 {
+	to_clear = 1;
 	leftx = gtk_spin_button_get_value(widget);
 }
 
 void right_button_clicked(GtkSpinButton *widget, gpointer data)
 {
+	to_clear = 1;
 	rightx = gtk_spin_button_get_value(widget);
 }
 
 void top_button_clicked(GtkSpinButton *widget, gpointer data)
 {
+	to_clear = 1;
 	topy = gtk_spin_button_get_value(widget);
 }
 
 void bot_button_clicked(GtkSpinButton *widget, gpointer data)
 {
+	to_clear = 1;
 	boty = gtk_spin_button_get_value(widget);
 }
 
@@ -211,6 +260,7 @@ int main(int argc, char *argv[])
 	//DISPLAYAN
 	gtk_init(&argc, &argv);
 
+	to_clear = 0;
 	struct view v;
 	view_init(&v);
 	main_draw = v.drawing_area;
@@ -222,6 +272,8 @@ int main(int argc, char *argv[])
 	g_signal_connect(v.submit_button, "clicked", 
       		G_CALLBACK(sub_button_clicked),
 		GTK_ENTRY(v.eq_text));
+	g_signal_connect(v.clear_button, "clicked", 
+      		G_CALLBACK(clear_button_clicked), NULL);
 	g_signal_connect(main_draw, "configure-event",
 		G_CALLBACK(configure_event), NULL); 
 	g_signal_connect(main_draw, "expose-event",
