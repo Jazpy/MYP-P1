@@ -21,3 +21,5 @@ In order to use this application, please type in "./configure" while in the topm
 followed by "make" and finally "src/main" to run the application.
 
 If you want to run the unit tests, type in "make check" after having run "configure".
+
+"make docs" will generate documentation.
