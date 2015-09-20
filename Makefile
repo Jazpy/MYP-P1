@@ -422,13 +422,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing aclocal-1.14
+ACLOCAL = ${SHELL} /home/jaz/Documents/MYP/P1/build/missing aclocal-1.14
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = ar
-AUTOCONF = ${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing autoconf
-AUTOHEADER = ${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing autoheader
-AUTOMAKE = ${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing automake-1.14
+AUTOCONF = ${SHELL} /home/jaz/Documents/MYP/P1/build/missing autoconf
+AUTOHEADER = ${SHELL} /home/jaz/Documents/MYP/P1/build/missing autoheader
+AUTOMAKE = ${SHELL} /home/jaz/Documents/MYP/P1/build/missing automake-1.14
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -441,7 +441,7 @@ CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"edd\" -DPACKAGE_TARNAME=\"edd\" -DPACKAGE_VERSION=\"2014.2\" -DPACKAGE_STRING=\"edd\ 2014.2\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"edd\" -DVERSION=\"2014.2\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\"
 DEPDIR = .deps
 DLLTOOL = false
-DOXYGEN = doxygen
+DOXYGEN = 
 DSYMUTIL = 
 DUMPBIN = 
 ECHO_C = 
@@ -466,7 +466,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing makeinfo
+MAKEINFO = ${SHELL} /home/jaz/Documents/MYP/P1/build/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -492,10 +492,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 2014.2
-abs_builddir = /home/jaz/Documents/MYP/MYP-P1
-abs_srcdir = /home/jaz/Documents/MYP/MYP-P1
-abs_top_builddir = /home/jaz/Documents/MYP/MYP-P1
-abs_top_srcdir = /home/jaz/Documents/MYP/MYP-P1
+abs_builddir = /home/jaz/Documents/MYP/P1
+abs_srcdir = /home/jaz/Documents/MYP/P1
+abs_top_builddir = /home/jaz/Documents/MYP/P1
+abs_top_srcdir = /home/jaz/Documents/MYP/P1
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -524,7 +524,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/install-sh
+install_sh = ${SHELL} /home/jaz/Documents/MYP/P1/build/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -612,8 +612,8 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
-doc/doxyfile: $(top_builddir)/config.status $(top_srcdir)/doc/doxyfile.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
+#doc/doxyfile: $(top_builddir)/config.status $(top_srcdir)/doc/doxyfile.in
+#	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 clean-noinstLTLIBRARIES:
 	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
@@ -1337,15 +1337,15 @@ uninstall-am: uninstall-binPROGRAMS
 
 	$(END_LIST)
 
-docs:
-	cd $(top_srcdir)/doc && doxygen
-
-docs-pdf: docs
-	cd $(top_srcdir)/doc/latex && make
 #docs:
-#	echo "No se encontró doxygen: la documentación no puede generarse.";
+#	cd $(top_srcdir)/doc && doxygen
 
 #docs-pdf: docs
+#	cd $(top_srcdir)/doc/latex && make
+docs:
+	echo "No se encontró doxygen: la documentación no puede generarse.";
+
+docs-pdf: docs
 
 clean-local: clean-docs
 

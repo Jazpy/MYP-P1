@@ -66,7 +66,7 @@ void update_draw()
 		if(strcmp(result.str, "s") != 0)
 			continue;
 
-		int y = height / 2 - (result.val * yscale);
+		int y = yscale * (topy) - yscale * (result.val);
 
 		if(did_draw && abs(y - prev_y) < height)
 		{

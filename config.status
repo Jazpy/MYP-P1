@@ -393,7 +393,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" doc/doxyfile Makefile"
+config_files=" Makefile"
 config_commands=" depfiles libtool"
 
 ac_cs_usage="\
@@ -431,7 +431,7 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/jaz/Documents/MYP/MYP-P1'
+ac_pwd='/home/jaz/Documents/MYP/P1'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -658,7 +658,7 @@ finish_cmds='PATH="\$PATH:/sbin" ldconfig -n $libdir'
 finish_eval=''
 hardcode_into_libs='yes'
 sys_lib_search_path_spec='/usr/lib/gcc/x86_64-linux-gnu/4.8 /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /lib '
-sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/x86_64-linux-gnu/libfakeroot /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/mesa-egl /usr/lib/fglrx /usr/lib32/fglrx /usr/lib/x86_64-linux-gnu/mir/clientplatform/mesa /lib32 /usr/lib32 '
+sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/x86_64-linux-gnu/libfakeroot /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/mesa-egl /usr/lib/fglrx /usr/lib32/fglrx /lib32 /usr/lib32 '
 hardcode_action='immediate'
 enable_dlopen='unknown'
 enable_dlopen_self='unknown'
@@ -804,9 +804,9 @@ S["GTK_LIBS"]="-lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -l
 S["GTK_CFLAGS"]="-pthread -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2."\
 "0 -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/freetype2 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/includ"\
 "e -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/harfbuzz  "
-S["HAVE_DOXYGEN_FALSE"]="#"
-S["HAVE_DOXYGEN_TRUE"]=""
-S["DOXYGEN"]="doxygen"
+S["HAVE_DOXYGEN_FALSE"]=""
+S["HAVE_DOXYGEN_TRUE"]="#"
+S["DOXYGEN"]=""
 S["CHECK_LIBS"]="-pthread -lcheck_pic -lrt -lm  "
 S["CHECK_CFLAGS"]="-pthread  "
 S["PKG_CONFIG_LIBDIR"]=""
@@ -873,12 +873,12 @@ S["mkdir_p"]="$(MKDIR_P)"
 S["MKDIR_P"]="/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]="strip"
-S["install_sh"]="${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/install-sh"
-S["MAKEINFO"]="${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing makeinfo"
-S["AUTOHEADER"]="${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing autoheader"
-S["AUTOMAKE"]="${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing automake-1.14"
-S["AUTOCONF"]="${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing autoconf"
-S["ACLOCAL"]="${SHELL} /home/jaz/Documents/MYP/MYP-P1/build/missing aclocal-1.14"
+S["install_sh"]="${SHELL} /home/jaz/Documents/MYP/P1/build/install-sh"
+S["MAKEINFO"]="${SHELL} /home/jaz/Documents/MYP/P1/build/missing makeinfo"
+S["AUTOHEADER"]="${SHELL} /home/jaz/Documents/MYP/P1/build/missing autoheader"
+S["AUTOMAKE"]="${SHELL} /home/jaz/Documents/MYP/P1/build/missing automake-1.14"
+S["AUTOCONF"]="${SHELL} /home/jaz/Documents/MYP/P1/build/missing autoconf"
+S["ACLOCAL"]="${SHELL} /home/jaz/Documents/MYP/P1/build/missing aclocal-1.14"
 S["VERSION"]="2014.2"
 S["PACKAGE"]="edd"
 S["CYGPATH_W"]="echo"
